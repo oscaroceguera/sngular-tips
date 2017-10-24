@@ -149,7 +149,12 @@ var even = firstArray.filter( function( num ){
 
 ```javascript
 var myStr = 'Hello';
-myStr.split('').reverse().join(); // 'olleH'
+myStr.myStr('').reverse().join(''); // 'olleH'
+
+// why
+myStr.myStr(''); // ["H", "e", "l", "l", "o"]
+myStr.split('').reverse(); // ["o", "l", "l", "e", "H"]
+myStr.myStr('').reverse().join(''); // 'olleH'
 ```
 
 
