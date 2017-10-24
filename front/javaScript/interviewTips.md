@@ -49,7 +49,7 @@ x.constructor === Array // true
 var a= [ 1, 2, 3 ]
 var b= [ 4, 5 ]
 
-var c = a.concat( b ) // 1, 2, 3, 4, 5, 
+var c = a.concat( b ) // 1, 2, 3, 4, 5,
 
 // Operador Spread
 var arr1 = [0, 1, 2];
@@ -103,7 +103,7 @@ var d = a.slice(1, 2); // d is ['b']
 
 ```javascript
 //opción 1
-var sum = firstArray.reduce( function( curr, prev ){ 
+var sum = firstArray.reduce( function( curr, prev ){
 	return curr + prev;
 } )
 
@@ -111,7 +111,7 @@ var avg = sum / firstArray.length
 
 
 // opción 2
-var sum = firstArray.reduce( function( curr, prev, index, vector ){ 
+var sum = firstArray.reduce( function( curr, prev, index, vector ){
 	if( index === vector.length -1 ){
 		return ( curr + prev ) / vector.length;
 	}
@@ -123,7 +123,7 @@ var sum = firstArray.reduce( function( curr, prev, index, vector ){
 ## Obtener el cuadrado de cada número del arreglo
 
 ```javascript
-var sq = firstArray.map( function( num ){ 
+var sq = firstArray.map( function( num ){
 	return num * num;
 } )
 ```
@@ -132,15 +132,24 @@ var sq = firstArray.map( function( num ){
 
 ```javascript
 var even = [];
-firstArray.map( function( num ){ 
+firstArray.map( function( num ){
 	if( num % 2 === 0 )
-		even.push( num ); 
+		even.push( num );
 } )
 
 // o en ES6
-var even = firstArray.filter( function( num ){ 
+var even = firstArray.filter( function( num ){
 	return  num % 2 === 0;
 } )
+
+
+// con reduce
+var even = firstArray.reduce( function( prev, num ){
+	if( num % 2 === 0 ){
+		prev.push( num )
+	}
+	return prev
+}, [] )
 
 ```
 
@@ -183,7 +192,7 @@ Shallow copy( copia superficial ): solo se asigna el mismo valor de la memoría.
 ```javascript
 // Shallow copy
 var obj = { test: 1 };
-var obj2 = obj; 
+var obj2 = obj;
 
 obj2.abc = 12; // Cuando agregamos una nueva propiedad a obj2 tambien se asigna a obj ya que apuntan al mismo espacio en memoria
 obj.test = 2; // Cuando cambiamos una nueva propiedad de obj tambien se cambia obj2
@@ -197,15 +206,15 @@ var obj = { test: 1 };
 var obj2 = Object.assign( {}, obj );
 
 obj2.abc = 12;
-// Si se agrega una nueva propiedad a obj2, esta no se ve reflejada en obj 
-// ya que estan en diferentes espacios de memoria 
+// Si se agrega una nueva propiedad a obj2, esta no se ve reflejada en obj
+// ya que estan en diferentes espacios de memoria
 
 
-// Ejemplo con operador Spread 
-var obj1 = { foo: 'bar', x: 42 }; 
-var obj2 = { foo: 'baz', y: 13 }; 
+// Ejemplo con operador Spread
+var obj1 = { foo: 'bar', x: 42 };
+var obj2 = { foo: 'baz', y: 13 };
 
-var clonedObj = { ...obj1 }; // Object { foo: "bar", x: 42 } 
+var clonedObj = { ...obj1 }; // Object { foo: "bar", x: 42 }
 var mergedObj = { ...obj1, ...obj2 }; // Object { foo: "baz", x: 42, y: 13 }
 ```
 
@@ -296,20 +305,20 @@ Promise.all( [ p1, p2 ] ).then( function( array ){
 } ).catch()
 
 // Ejemplo 2
-var p1 = Promise.resolve(3); 
-var p2 = 1337; 
-var p3 = new Promise(function(resolve, reject) { 
-    setTimeout(resolve, 100, "foo"); 
-}); 
+var p1 = Promise.resolve(3);
+var p2 = 1337;
+var p3 = new Promise(function(resolve, reject) {
+    setTimeout(resolve, 100, "foo");
+});
 
 Promise.all([p1, p2, p3])
-    .then( function(values){ 
-        console.log(values); // [3, 1337, "foo"] 
+    .then( function(values){
+        console.log(values); // [3, 1337, "foo"]
     })
     .catch(function(){
     	// si una petición es rechazada, mamasteee...
     });
-// catch 
+// catch
 ```
 
 [Explicación de Promises.all](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Promise/all)
@@ -337,4 +346,3 @@ console.log( example.getName );
 console.log( example instanceof Person )
 
 ```
-
