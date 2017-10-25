@@ -26,6 +26,66 @@ var firstArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 | 5 >> 1    |    2      | 0101 >> 1   | 0010 |
 | 5 >>> 1   |    2      | 0101 >>> 1  | 0010 |
 
+## Hoisting
+
+Consiste en que con independencia de donde esté la declaración de un avariable, ésta es movida al inicio del ámbito al que pertenece. Es decir, aunque nuestro código sea com el siguiente:
+
+```javascript
+    function foo() {
+        console.log(x);
+        var x = 10;
+    }
+```
+
+Realmente se tratará a todos los efectos como si hubiésemos escrito:
+
+```javascript
+    function foo() {
+        var x;
+        console.log(x);
+        x = 10;
+    }
+```
+
+El hoisting influye en el ciclo de vida de una variable, que consta en 3 pasos:
+
+* **Declaración** crear una nueva variable. E.g `var myValue`
+* **Inicialización** inicializa la variable con un valor. E.g. `myValue = 150`
+* **Uso** accesar y usar el valor de la variable. E.g. `alert(myvalue)`
+
+Es importante además recalcar que, a diferencia de otros lenguajes, el código dentro de las llaves de un if o de un for no abre un ámbito nuevo. Supongamos un código como el que viene a continuación:
+
+```javascript
+    function foo() {
+        var item={v:'value'};
+        for (var idx in [0,1]) {
+            var item = {i: idx};
+            console.log(item);
+        }
+        console.log(item);
+    }
+
+    foo();
+```
+
+Este código parece que tenga que imprimir {i:0}, {i:1} (al iterar dentro del for) y luego {v:'value'} (el valor de la variable item de fuera del for). Pero  realmente la declaración de la variable item dentro del for se mueve fuera de este, ya que el bloque for no declara un nuevo ámbito de visibilidad. De este modo el código es equivalente a:
+
+```javascript
+    function foo() {
+        var item;       // Primer item declarado
+        var item;       // Segundo item declarado dentro del for
+        var idx;        // Variable idx declarada en el for
+        item={v:'value'};
+        for (idx in [0,1]) {
+            item = {i: idx};
+            console.log(item);
+        }
+        console.log(item);
+    }
+
+    foo();
+```
+
 
 ## Como validar si un arreglo es un arreglo
 
