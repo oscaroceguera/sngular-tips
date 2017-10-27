@@ -258,7 +258,8 @@ obj2.abc = 12; // Cuando agregamos una nueva propiedad a obj2 tambien se asigna 
 obj.test = 2; // Cuando cambiamos una nueva propiedad de obj tambien se cambia obj2
 ```
 
-Deep copy( copia profunda ): Crea una nueva copia de un objeto y un nuevo espacio de memoria
+Deep copy( copia profunda ): Crea una nueva copia de un objeto y un nuevo
+espacio de memoria
 
 ```javascript
 // Shallow copy
@@ -280,7 +281,8 @@ var mergedObj = { ...obj1, ...obj2 }; // Object { foo: "baz", x: 42, y: 13 }
 
 ## Hoisting
 
-Comportamiento por default de Javascript para agregar variables hasta el top de un contexto.
+Comportamiento por default de Javascript para agregar variables hasta el top
+de un contexto.
 
 ```javascript
 var result = 4;
@@ -304,7 +306,9 @@ ejemplo3() // 10
 
 ## 'use strict';
 
-Impide crear variables de ámbito global “accidentalmente”. Toda variable ha de estar previamente declarada, ejemplo: Si usas foo = "bar" sin definir foo primero, tu código va a fallar.
+Impide crear variables de ámbito global “accidentalmente”. Toda variable ha de
+estar previamente declarada, ejemplo: Si usas foo = "bar" sin definir foo
+primero, tu código va a fallar.
 
 [Referencia sobre Use strict](https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Modo_estricto)
 
@@ -339,16 +343,24 @@ Como generar una nueva promesa nativa.
 
 ```javascript
 var promise = new Promise(function( resolve, reject ){
-    // some Jquery request
-    $.ajax({
-    	url: '/roooooo',
-	success: function( response ){
-	    resolve( response )
-	},
-	error: function( err ){
-	    reject( err )
-	}
-    })
+    var returnValue;
+    try {
+      returnValue = someFunc();
+    } catch (e) {
+      reject(e);
+    }
+    // something async like setTimeout
+    setTimeout(function timeoutCallback() {
+      resolve(returnValue);
+    }, 10000)
+});
+
+promise
+.then(function(value) {
+  console.log(value);
+})
+.error(function(e) {
+  console.log('error!!!!', e);
 });
 
 ```
