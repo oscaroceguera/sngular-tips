@@ -31,20 +31,20 @@ var firstArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 Consiste en que con independencia de donde esté la declaración de un avariable, ésta es movida al inicio del ámbito al que pertenece. Es decir, aunque nuestro código sea com el siguiente:
 
 ```javascript
-    function foo() {
-        console.log(x);
-        var x = 10;
-    }
+function foo() {
+  console.log(x);
+  var x = 10;
+}
 ```
 
 Realmente se tratará a todos los efectos como si hubiésemos escrito:
 
 ```javascript
-    function foo() {
-        var x;
-        console.log(x);
-        x = 10;
-    }
+function foo() {
+  var x;
+  console.log(x);
+  x = 10;
+}
 ```
 
 El hoisting influye en el ciclo de vida de una variable, que consta en 3 pasos:
@@ -315,7 +315,7 @@ objX.objA.value = 'b';
 
 console.log(objX.objA.value) // b
 console.log(objY.objA.value) // a
-````
+```
 
 ## Hoisting
 
@@ -385,12 +385,12 @@ var myPromise = new Promise(function( resolve, reject ){
   try {
     returnValue = someFunc();
   } catch (e) {
-    reject(e);
+    reject(e); // Reject la promesa en caso de error
   }
   // something async like setTimeout
   setTimeout(function timeoutCallback() {
-    resolve(returnValue);
-  }, 10000)
+    resolve(returnValue); // Resuelve la promesa **cuando el valor esta disponible**
+  }, 10000);
 });
 
 myPromise
