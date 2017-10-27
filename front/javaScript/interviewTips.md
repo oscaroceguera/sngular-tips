@@ -245,21 +245,27 @@ curry( 2 );
 sum( 1 )( 2 );
 ```
 
-## Deep copy y Shallow Copy
+## Duplicate reference, Shallow copy y Deep Copy.
 
-Shallow copy( copia superficial ): solo se asigna el mismo valor de la memoría.
+### Duplicate reference
 
 ```javascript
-// Shallow copy
+// Duplicate reference
 var obj = { test: 1 };
 var obj2 = obj;
 
+obj === obj2 // true
+
 obj2.abc = 12; // Cuando agregamos una nueva propiedad a obj2 tambien se asigna a obj ya que apuntan al mismo espacio en memoria
 obj.test = 2; // Cuando cambiamos una nueva propiedad de obj tambien se cambia obj2
+
+obj.abc // 12
+obj.test // 2
 ```
 
-Deep copy( copia profunda ): Crea una nueva copia de un objeto y un nuevo
-espacio de memoria
+### Shallow copy
+Shallow copy( copia superficial ): solo se copian las `own properties` de un objeto,
+estas son las propiedades en el primer nivel del objeto:
 
 ```javascript
 // Shallow copy
@@ -268,7 +274,7 @@ var obj2 = Object.assign( {}, obj );
 
 obj2.abc = 12;
 // Si se agrega una nueva propiedad a obj2, esta no se ve reflejada en obj
-// ya que estan en diferentes espacios de memoria
+// ya que es una Own property en un espacio diferente de memoria
 
 
 // Ejemplo con operador Spread
@@ -277,7 +283,39 @@ var obj2 = { foo: 'baz', y: 13 };
 
 var clonedObj = { ...obj1 }; // Object { foo: "bar", x: 42 }
 var mergedObj = { ...obj1, ...obj2 }; // Object { foo: "baz", x: 42, y: 13 }
+
+// Ejemplo con jQuery extend
+$.extend(obj1, obj2);
+
 ```
+
+####OJO!:
+Shallow copy duplica las `own properties` de un obejeto (`x`), lo que quiere decir que si
+tenemos un objeto (`y`) dentro de una propiedad que estamos copiando con shallow copy
+solo nos copiaremos la referencia al objeto `y`:
+
+````javascript
+var objX = { objA: { value: 'a' } };
+var objY = Object.assign({}, objX);
+
+objX.objA.value = 'b';
+console.log(objY.objA.value) // b
+````
+
+### Deep copy
+Es una copia que desciende recursivamente a todos los objetos y arreglos contenidos
+en el objeto que queremos duplicar. Existen algunas librerias que ofrecen un mecanismo
+de deep copy (i.e. jQuery, ver: https://github.com/jquery/jquery/blob/50e3395e7e25d3286ed3daa17ee5ae4d862b0602/src/core.js#L132).
+
+```javascript
+var objX = { objA: { value: 'a' } };
+var objY = $.extend(true, {}, objX); // primer parametro true habilita deepCopy
+
+objX.objA.value = 'b';
+
+console.log(objX.objA.value) // b
+console.log(objY.objA.value) // a
+````
 
 ## Hoisting
 
