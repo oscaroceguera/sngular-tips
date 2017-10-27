@@ -232,9 +232,9 @@ myStr.myStr('').reverse().join(''); // 'olleH'
 Curry es poder llamar una función con menos parámetros de los que espera, esta devuelve una función que espera los parámetros restantes y retorna el resultado.
 ```javascript
 function sum( num1 ){
-    return function( num2 ){
-        return num1 + num2;
-    };
+  return function( num2 ){
+    return num1 + num2;
+  };
 }
 
 // Forma 1 de ejecutar la función
@@ -289,8 +289,8 @@ $.extend(obj1, obj2);
 
 ```
 
-####OJO!:
-Shallow copy duplica las `own properties` de un obejeto (`x`), lo que quiere decir que si
+#### OJO!:
+Shallow copy duplica las `own properties` de un objeto (`x`), lo que quiere decir que si
 tenemos un objeto (`y`) dentro de una propiedad que estamos copiando con shallow copy
 solo nos copiaremos la referencia al objeto `y`:
 
@@ -325,21 +325,21 @@ de un contexto.
 ```javascript
 var result = 4;
 function ejemplo (){
-    console.log(result);
+  console.log(result);
 }
-ejemplo() // 4
+ejemplo(); // 4
 
 function ejemplo2 (){
-    console.log(result);
-    var result = 10;
+  console.log(result);
+  var result = 10;
 }
-ejemplo2() // undefined
+ejemplo2(); // undefined
 
 function ejemplo3 (){
-    var result = 10;
-    console.log(result);
+  var result = 10;
+  console.log(result);
 }
-ejemplo3() // 10
+ejemplo3(); // 10
 ```
 
 ## 'use strict';
@@ -380,27 +380,26 @@ print() // 1, 3, 2
 Como generar una nueva promesa nativa.
 
 ```javascript
-var promise = new Promise(function( resolve, reject ){
-    var returnValue;
-    try {
-      returnValue = someFunc();
-    } catch (e) {
-      reject(e);
-    }
-    // something async like setTimeout
-    setTimeout(function timeoutCallback() {
-      resolve(returnValue);
-    }, 10000)
+var myPromise = new Promise(function( resolve, reject ){
+  var returnValue;
+  try {
+    returnValue = someFunc();
+  } catch (e) {
+    reject(e);
+  }
+  // something async like setTimeout
+  setTimeout(function timeoutCallback() {
+    resolve(returnValue);
+  }, 10000)
 });
 
-promise
-.then(function(value) {
-  console.log(value);
-})
-.error(function(e) {
-  console.log('error!!!!', e);
-});
-
+myPromise
+  .then(function(value) {
+    console.log(value);
+  })
+  .error(function(e) {
+    console.log('error!!!!', e);
+  });
 ```
 
 Como ejecutar multiples promesas.
